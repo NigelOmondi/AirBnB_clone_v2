@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
         try:
             if not args:
                 raise SyntaxError
-            argsList = args.split(' ')
+            argsList = args.split()
             className = args[0]
             if className not in HBNBCommand.classes:
                 raise NameError
