@@ -137,10 +137,9 @@ class HBNBCommand(cmd.Cmd):
                 newObject = eval(className)()
             else:
                 newObject = eval(className)(**kwargs)
-            
-            storage.new(newObject)
-            storage.save()
+                storage.new(newObject)
             print(newObject.id)
+            newObject.save()
 
         except NameError:
             print("** class doesn't exist **")
