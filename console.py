@@ -117,8 +117,8 @@ class HBNBCommand(cmd.Cmd):
         """ Create an object of any class with fed key/value parameters"""
         try:
             if not args:
-                raise SyntaxError
-            argsList = args.split()
+                raise SyntaxError()
+            argsList = args.split(" ")
             className = args[0]
             if className not in HBNBCommand.classes:
                 raise NameError
