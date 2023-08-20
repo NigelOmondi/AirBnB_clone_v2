@@ -119,7 +119,7 @@ class HBNBCommand(cmd.Cmd):
             if not args:
                 raise SyntaxError()
             argsList = args.split(" ")
-            className = args[0]
+            className = argsList[0]
 
             kwargs = {}
             for i in range(1, len(argsList)):
@@ -137,10 +137,10 @@ class HBNBCommand(cmd.Cmd):
                 newObject = eval(className)()
             else:
                 newObject = eval(className)(**kwargs)
-            
-            storage.new(newObject)
-            storage.save()
+                storage.new(newObject)
             print(newObject.id)
+            newObject.save()
+            
 
         except NameError:
             print("** class doesn't exist **")
