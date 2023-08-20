@@ -120,6 +120,7 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             argsList = args.split(" ")
             className = args[0]
+
             kwargs = {}
             for i in range(1, len(argsList)):
                 key, value = tuple(argsList[i].split("="))
@@ -133,9 +134,9 @@ class HBNBCommand(cmd.Cmd):
                 kwargs[key] = value
 
             if kwargs == {}:
-                newObject = HBNBCommand.classes[className]()
+                newObject = eval(className)()
             else:
-                newObject = HBNBCommand.classes[className](**kwargs)
+                newObject = eval(className)(**kwargs)
                 storage.new(newObject)
             print(newObject.id)
             newObject.save()
