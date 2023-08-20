@@ -120,8 +120,6 @@ class HBNBCommand(cmd.Cmd):
                 raise SyntaxError()
             argsList = args.split(" ")
             className = args[0]
-            if className not in HBNBCommand.classes:
-                raise NameError
             kwargs = {}
             for i in range(1, len(argsList)):
                 key, value = tuple(argsList[i].split("="))
