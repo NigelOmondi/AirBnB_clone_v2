@@ -8,16 +8,17 @@ from sqlalchemy.orm import relationship
 
 
 class State(BaseModel, Base):
-	""" State class """
-	__tablename__ = "states"
-	name = Column(String(128, nullable=False))
-	cities = relationship("City", backref="state", cascade="delete")
+    """ State class """
+    __tablename__ = "states"
+    name = Column(String(128, nullable=False))
+    cities = relationship("City", backref="state", cascade="delete")
 
-	@property
-	def cities(self):
-		"""Returns the list of City instances
-		with state_id equals to the current. """
+    @property
+    def cities(self):
+        """Returns the list of City instances
+        with state_id equals to the current. """
 
-		allCities = models.storage.all(City)
+        allCities = models.storage.all(City)
 
-		return [city for city in allCities.values() if city.state_id == self.id]
+        return [city for city in allCities.values()
+                if city.state_id == self.id]
