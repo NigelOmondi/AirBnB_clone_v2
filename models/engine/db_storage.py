@@ -44,51 +44,51 @@ class DBStorage:
         if dbEnv == "test":
             Base.metadata.drop_all(self.__engine)
 
-        def all(self, cls=None):
-            """
-                Returns a dictionary of all objects of a specific class,
-                or all objects if cls is None.
+    def all(self, cls=None):
+        """
+            Returns a dictionary of all objects of a specific class,
+            or all objects if cls is None.
 
-                Args:
-                    cls (class object, optional): The class for which to
-                    retrieve objects.
+            Args:
+                cls (class object, optional): The class for which to
+                retrieve objects.
 
-                Returns:
-                    dict: A dictionary of objects where the keys are in
-                    the format "ClassName.object_id".
-            """
+            Returns:
+                dict: A dictionary of objects where the keys are in
+                the format "ClassName.object_id".
+        """
 
-            objectList = {}
+        objectList = {}
 
+        if cls is not None:
+            if isinstance(cls, str):
+                cls = self.__classes.get(cls)
             if cls is not None:
-                if isinstance(cls, str):
-                    cls = self.__classes.get(cls)
-                if cls is not None:
-                    clsobjects = self.__session.query(cls).all()
-                    for obj in clsobjects:
-                        objectList["{}.{}".format(
-                            obj.__class__.__name__, obj.id)] = obj
-            else:
-                for class_name, class_obj in self.__classes.items():
-                    clsobjects = self.__session.query(class_obj).all()
-                    for obj in clsobjects:
-                        objectList["{}.{}".format(
-                            obj.__class__.__name__, obj.id)] = obj
+                clsobjects = self.__session.query(cls).all()
+                for obj in clsobjects:
+                    objectList["{}.{}".format(
+                        obj.__class__.__name__, obj.id)] = obj
+        else:
+            for class_name, class_obj in self.__classes.items():
+                clsobjects = self.__session.query(class_obj).all()
+                for obj in clsobjects:
+                    objectList["{}.{}".format(
+                        obj.__class__.__name__, obj.id)] = obj
 
-            return objectList
+        return objectList
 
-        def save(self):
-            """Commits all changes of  current database session."""
-            self.__session.commit()
+    def save(self):
+        """Commits all changes of  current database session."""
+        self.__session.commit()
 
-        def delete(self, obj=None):
-            """Deletes obj from  current database session if not None."""
-            if obj:
-                self.__session.delete(obj)
+    def delete(self, obj=None):
+        """Deletes obj from  current database session if not None."""
+        if obj:
+            self.__session.delete(obj)
 
-        def reload(self):
-            """Reloads objects from the database."""
+    def reload(self):
+        """Reloads objects from the database."""
 
-            Base.metadata.create_all(self.__engine)
-            Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-            self.__session = scoped_session(Session)
+        Base.metadata.create_all(self.__engine)
+        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        self.__session = scoped_session(Session)
