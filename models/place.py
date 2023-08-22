@@ -6,6 +6,7 @@ from models.amenity import Amenity
 from models.review import Review
 from sqlalchemy import String, Integer, Float, ForeignKey, Column, Table
 from sqlalchemy.orm import relationship
+from os import getenv
 
 place_amenity = Table("place_amenity", Base.metadata,
                       Column("place_id", String(60),
@@ -36,26 +37,27 @@ class Place(BaseModel, Base):
                              viewonly=False)
     amenity_ids = []
 
-    @property
-    def reviews(self):
-        """Return a list of review instances"""
-        review_values = models.storage.all(Review).values()
-        review_list = []
-        for review in review_values:
-            if review.place_id == self.id:
-                review_list.append(review)
-        return review_list
+    if getenv("HBNB_TYPE_STORAGE", None) != "db":
+        @property
+        def reviews(self):
+            """Return a list of review instances"""
+            review_values = models.storage.all(Review).values()
+            review_list = []
+            for review in review_values:
+                if review.place_id == self.id:
+                    review_list.append(review)
+            return review_list
 
-    @property
-    def amenities(self):
-        """Get/set linked Amenities."""
-        amenityList = []
-        for amenity in list(models.storage.all(Amenity).values()):
-            if amenity.id in self.amenity_ids:
-                amenityList.append(amenity)
-        return amenityList
+        @property
+        def amenities(self):
+            """Get/set linked Amenities."""
+            amenityList = []
+            for amenity in list(models.storage.all(Amenity).values()):
+                if amenity.id in self.amenity_ids:
+                    amenityList.append(amenity)
+            return amenityList
 
-    @amenities.setter
-    def amenities(self, value):
-        if type(value) is Amenity:
-            self.amenity_ids.append(value.id)
+        @amenities.setter
+        def amenities(self, value):
+            if type(value) is Amenity:
+                self.amenity_ids.append(value.id)
