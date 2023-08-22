@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 
 
 class Review(BaseModel, Base):
-    """ Review class to store review information 
+    """ Review class to store review information
 
         Attributes:
         __tablename__ (str): The name of the MySQL table to store Reviews.

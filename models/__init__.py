@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """
 This module instantiates an object of class FileStorage
-    :: if encironment used is db it utileses the relation database 
-    :: otherwise it uses the json file storage database 
+    :: if encironment used is db it utileses the relation database
+    :: otherwise it uses the json file storage database
 """
 from os import getenv
 

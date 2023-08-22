@@ -6,6 +6,7 @@ from sqlalchemy import Column, String, Integer
 from sqlalchemy.orm import relationship
 from os import getenv
 
+
 class User(BaseModel, Base):
     """This class defines a user by various attributes
        Inherits from SQLAlchemy declarative_base
@@ -18,7 +19,7 @@ class User(BaseModel, Base):
        first_name (sqlalchemy String): The user's first name.
        last_name (sqlalchemy String): The user's last name.
        places (sqlalchemy relationship): The User-Place relationship.
-       reviews (sqlalchemy relationship): The User-Review relationship. 
+       reviews (sqlalchemy relationship): The User-Review relationship.
     """
     __tablename__ = "users"
     email = Column(String(128), nullable=False)
