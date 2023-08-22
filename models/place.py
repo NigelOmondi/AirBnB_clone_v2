@@ -1,10 +1,8 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+import models
 from models.base_model import BaseModel, Base
-from models.city import City
 from models.review import Review
-from models.user import User
-from os import getenv
 from sqlalchemy import String, Integer, Float, ForeignKey, Column
 from sqlalchemy.orm import relationship
 
@@ -29,7 +27,7 @@ class Place(BaseModel, Base):
     @property
     def reviews(self):
         """Return a list of review instances"""
-        review_values = models.storage.all("Review").values()
+        review_values = models.storage.all(Review).values()
         review_list = []
         for review in review_values:
             if review.place_id == self.id:
