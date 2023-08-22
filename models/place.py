@@ -5,8 +5,8 @@ from models.city import City
 from models.review import Review
 from models.user import User
 from os import getenv
-import sqlalchemy
-from sqlalchemy.orm import String, Integer, Float, ForeignKey, Table
+from sqlalchemy import String, Integer, Float, ForeignKey, Column
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
