@@ -10,7 +10,6 @@ from models.review import Review
 from models.base_model import BaseModel
 
 
-
 class TestReview(unittest.TestCase):
     """Test the Review class"""
 
@@ -27,7 +26,7 @@ class TestReview(unittest.TestCase):
         """
         To clean up after test is complete
         Deleting "review" attribute from class
-        so as to reset test related review/data. 
+        so as to reset test related review/data.
         """
         del cls.review
 

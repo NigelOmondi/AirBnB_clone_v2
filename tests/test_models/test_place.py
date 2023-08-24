@@ -34,7 +34,7 @@ class TestPlace(unittest.TestCase):
         """
         To clean up after test is complete
         Deleting "place" attribute from class
-        so as to reset test related place/data.           
+        so as to reset test related place/data.
         """
         del cls.place
 

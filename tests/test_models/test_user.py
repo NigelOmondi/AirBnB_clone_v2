@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 Unittest for User class
 """
 import unittest
@@ -27,7 +27,7 @@ class TestUser(unittest.TestCase):
         """
         To clean up after test is complete
         Deleting "user" attribute from class
-        so as to reset test related user/data.  
+        so as to reset test related user/data.
         """
         del cls.user
 
