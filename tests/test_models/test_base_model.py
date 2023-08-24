@@ -88,14 +88,14 @@ class TestBaseModel(unittest.TestCase):
     def test_to_dict(self):
         """Test to_dict method."""
         testDict = self.base.to_dict()
-        self.assertEqual(self.base.id, testdict["id"])
+        self.assertEqual(self.base.id, testDict["id"])
         self.assertEqual(self.base.created_at.isoformat(),
                          testDict["created_at"])
         self.assertEqual(self.base.updated_at.isoformat(),
                          testDict["updated_at"])
         self.assertEqual("__class__", testDict.keys())
         self.assertEqual("BaseModel", testDict["__class__"])
-        self.assertEqual(testdict.get("_sa_instance_state", None), None)
+        self.assertEqual(testDict.get("_sa_instance_state", None), None)
 
     def test_str(self):
         """Test __str__ method."""

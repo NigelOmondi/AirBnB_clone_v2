@@ -5,7 +5,6 @@ Unittest for User class
 import unittest
 import os
 import pep8
-from tests.test_models.test_base_model import test_basemodel
 from models.user import User
 from models.base_model import BaseModel
 
