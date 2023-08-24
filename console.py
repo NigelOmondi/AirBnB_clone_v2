@@ -140,7 +140,6 @@ class HBNBCommand(cmd.Cmd):
                 storage.new(newObject)
             print(newObject.id)
             newObject.save()
-            
 
         except NameError:
             print("** class doesn't exist **")
