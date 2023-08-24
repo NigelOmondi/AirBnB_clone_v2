@@ -15,10 +15,10 @@ from os import getenv
 
 
 class DBStorage:
-    """Manages the relational database storage. 
+    """Manages the relational database storage.
         attr:
             :: __engine: The engine used.
-            :: __session: the current open session.    
+            :: __session: the current open session.
     """
 
     __engine = None
