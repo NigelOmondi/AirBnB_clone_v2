@@ -1,12 +1,32 @@
 #!/usr/bin/python3
+# Deploy archive
 """ Fabric script to distribute an archive to web servers"""
-from fabric.api import env, put, run, local
+from fabric.api import *
 from os.path import exists
+from os import path
 from datetime import datetime
 
 env.hosts = ['100.26.238.151', '100.25.183.127']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/school'
+
+
+def do_pack():
+    """
+    Generate a .tgz archive from the contents of web_static
+    folder into a .tgz archive.
+    Returns:
+        Archive path if successful, None upon failure
+    """
+    try:
+        now = datetime.now()
+        timestamp = now.strftime("%Y%m%d%H%M%S")
+        archive_name = "web_static_" + timestamp + ".tgz"
+        local("mkdir -p versions")
+        local("tar -czvf versions/{} web_static".format(archive_name))
+        return "versions/{}".format(archive_name)
+    except Exception:
+        return None
 
 
 def do_deploy(archive_path):
@@ -45,15 +65,3 @@ def do_deploy(archive_path):
         return True
     except Exception:
         return False
-
-
-if __name__ == "__main__":
-    archive_path = do_pack()
-    if archive_path:
-        result = do_deploy(archive_path)
-        if result:
-            print("New version deployed!")
-        else:
-            print("Deployment failed.")
-    else:
-        print("Archive creation failed")
