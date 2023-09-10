@@ -76,7 +76,7 @@ def deploy():
     else:
         return False
 
-def deploy()
+def deploy():
     """Full deployment of an archive to web servers"""
     file = do_pack()
     if file is None:
