@@ -12,7 +12,7 @@ $nginx_conf = "server {
         index index.html index.htm;
     }
     location /redirect_me {
-        return 301 http://linktr.ee/firdaus_h_salim/;
+        return 301 http://www.cyberchef.tech/;
     }
     error_page 404 /404.html;
     location /404 {
@@ -48,7 +48,7 @@ package { 'nginx':
 
 -> file { '/data/web_static/releases/test/index.html':
   ensure  => 'present',
-  content => "this webpage is found in data/web_static/releases/test/index.htm \n"
+  content => "Welcome to The CyberChef's Homepage. This is a secure site! \n"
 }
 
 -> file { '/data/web_static/current':
