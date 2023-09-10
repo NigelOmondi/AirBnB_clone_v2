@@ -9,30 +9,26 @@ from datetime import datetime
 env.hosts = ['100.26.238.151', '100.25.183.127']
 
 def do_pack():
-    """
-    Generate a .tgz archive from the contents of web_static
-    folder into a .tgz archive.
-    Returns:
-        Archive path if successful, None upon failure
-    """
+    """ generates a .tgz archive from the contents of  web_static"""
+
+    now = datetime.now()
+    timestamp = now.strftime("%Y%m%d%H%M%S")
+    archive_name = "versions/web_static_{}.tgz".format(timestamp)
+
     try:
-        now = datetime.now()
-        timestamp = now.strftime("%Y%m%d%H%M%S")
-        archive_name = "web_static_" + timestamp + ".tgz"
         local("mkdir -p versions")
-        local("tar -czvf versions/{} web_static".format(archive_name))
-        return "versions/{}".format(archive_name)
+        local("tar -czvf {} web_static".format(archive_name))
+        return archive_name
     except Exception:
         return None
 
 
 def do_deploy(archive_path):
-    """Distributes an archive file to 2 web servers.
-    Args:
-        archive_path (str): The path of the archive to distribute.
-    Returns:
-        If the file doesn't exist at archive_path or an error occurs - False.
-        Otherwise - True.
+    """
+    Distributes an archive to web servers and deploys it.
+    Args: archive_path :: Path to archive to be distributed
+    Return: If any error: Fale
+            Otherwise: True
     """
     if os.path.isfile(archive_path) is False:
         return False
@@ -63,22 +59,12 @@ def do_deploy(archive_path):
     if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
            format(name)).failed is True:
         return False
-
-    puts("New version deployed!")
     return True
 
 
 def deploy():
-    """Deploy a new version of web_static to web servers"""
+    """Creates and distributes an archives to  web servers."""
     archive_path = do_pack()
-    if archive_path:
-        return do_deploy(archive_path)
-    else:
+    if archive_path is None:
         return False
-
-def deploy()
-    """Full deployment of an archive to web servers"""
-    file = do_pack()
-    if file is None:
-        return False
-    return do_deploy(file)
+    return do_deploy(archive_path)
