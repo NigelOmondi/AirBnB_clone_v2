@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Fabric script to distribute an archive to web servers"""
+""" Fabric script to distribute an archive to remote web servers"""
 
 from fabric.api import *
 import os
