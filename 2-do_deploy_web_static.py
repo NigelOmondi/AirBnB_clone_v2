@@ -8,6 +8,7 @@ from datetime import datetime
 
 env.hosts = ['100.26.238.151', '100.25.183.127']
 
+
 def do_deploy(archive_path):
     """Distributes an archive file to 2 web servers.
     Args:
