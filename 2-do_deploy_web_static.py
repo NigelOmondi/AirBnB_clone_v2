@@ -2,14 +2,14 @@
 """ Fabric script to distribute an archive to web servers"""
 
 from fabric.api import *
-from os.path import exists
+import os
 from os import path
 from datetime import datetime
 
 env.hosts = ['100.26.238.151', '100.25.183.127']
 
 def do_deploy(archive_path):
-    """Distributes an archive to a web server.
+    """Distributes an archive file to 2 web servers.
     Args:
         archive_path (str): The path of the archive to distribute.
     Returns:
@@ -45,4 +45,6 @@ def do_deploy(archive_path):
     if run("ln -s /data/web_static/releases/{}/ /data/web_static/current".
            format(name)).failed is True:
         return False
+
+    puts("New version deployed!")
     return True
