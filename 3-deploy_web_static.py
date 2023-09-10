@@ -7,8 +7,8 @@ from datetime import datetime
 
 # Set the fabric environment variables
 env.hosts = ['100.26.238.151', '100.25.183.127']
-#env.user = 'ubuntu'
-#env.key_filename = '~/.ssh/school'
+# env.user = 'ubuntu'
+# env.key_filename = '~/.ssh/school'
 
 
 def do_pack():
