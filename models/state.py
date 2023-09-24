@@ -5,7 +5,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import String, Column
 from models.city import City
 from sqlalchemy.orm import relationship
-
+from os import getenv
 
 class State(BaseModel, Base):
     """ State class """
@@ -13,12 +13,12 @@ class State(BaseModel, Base):
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state", cascade="delete")
 
-    @property
-    def cities(self):
-        """Returns the list of City instances
-        with state_id equals to the current. """
-
-        allCities = models.storage.all(City)
-
-        return [city for city in allCities.values()
-                if city.state_id == self.id]
+    if getenv("HBNB_TYPE_STORAGE") != "db":
+        @property
+        def cities(self):
+            """Get a list of all related City Objects"""
+            city_list = []
+            for city in list(models.storage.all(City).values()):
+                if city.state_id == self.id:
+                    city_list.append(city)
+            return city_list
