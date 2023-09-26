@@ -1,54 +1,52 @@
-#!/usr/bin/python3
-"""Start a Flask web applicaton"""
-
 from flask import Flask, render_template
+
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
 def hello_hbnb():
-    """
-    Routing to root, strict_slashes ensure
-    the URL works when it ends both with or without the /
-    """
+    """Display"""
     return "Hello HBNB!"
 
 
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
-    """
-    Routing to /hbnb, strict_slashes ensure
-    the URL works when it ends both with or without the /
-    """
+    """Display"""
     return "HBNB"
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def c_is_fun(text):
-    """Routing to C using Variables"""
+def c_route(text):
+    """Replace underscores with spaces"""
     text = text.replace('_', ' ')
     return "C {}".format(text)
 
 
-@app.route('/python/', defaults={'text': 'is_cool'}, strict_slashes=False)
+@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python_is_cool(text):
-    """Routing to python with default value using Variables"""
+def python_route(text):
+    """Replace underscores with spaces"""
     text = text.replace('_', ' ')
     return "Python {}".format(text)
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
-def is_a_numbet(n):
-    """Routing to n for intergers only"""
-    return "{} is a number".format(n)
+def number_route(n):
+    """Display “n is a number” only if n is an integer"""
+    if isinstance(n, int):
+        return "{} is a number".format(n)
+    else:
+        return "", 404
 
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
-def is_a_numbet_template(n=None):
-    """Render a HTML page"""
-    return render_template('5-number.html', n=n)
+def number_template(n):
+    """Display HTML page if n is an integer"""
+    if isinstance(n, int):
+        return render_template('5-number.html', n=n)
+    else:
+        return "", 404
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
