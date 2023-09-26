@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Start a Flask web app listening on 0.0.0.0 port 5000"""
-from flask import Flask, render_template
+from flask import Flask,
+from flask import render_template
 
 app = Flask(__name__)
 
@@ -41,11 +42,11 @@ def number_route(n):
         return "", 404
 
 
-@app.route('/number_template/<int:n>', strict_slashes=False)
+@app.route("/number_template/<int:n>", strict_slashes=False)
 def number_template(n):
     """Display a HTML page only if n is an integer"""
     if isinstance(n, int):
-        return render_template('5-number.html', n=n)
+        return render_template("5-number.html", n=n)
     else:
         return "", 404
 
